@@ -1,8 +1,10 @@
 language: php
 
 before_script:
-  - curl -sS https://getcomposer.org/installer | php
-  - php composer.phar install --prefer-dist --no-interaction
+  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "5.3" ]]; then curl -sS https://getcomposer.org/installer | php ; fi
+  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "5.3" ]]; then php composer.phar install --prefer-dist --no-interaction ; fi
+  - if [[ ${TRAVIS_PHP_VERSION:0:3} != "5.3" ]]; then composer self-update ; fi
+  - if [[ ${TRAVIS_PHP_VERSION:0:3} != "5.3" ]]; then composer install --prefer-dist --no-interaction ; fi
 
 matrix:
   fast_finish: true
